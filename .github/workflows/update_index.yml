@@ -1,0 +1,78 @@
+name: Update Index
+
+on:
+  repository_dispatch:
+    types: [trigger_update_index]
+
+  workflow_dispatch:
+    inputs:
+      table:
+        type: choice
+        description: 'Name of the table being updated'
+        required: true
+        default: 'memgraph'
+        options:
+          - 'memgraph'
+          - 'mage'
+      limit:
+        type: integer
+        description: 'Maximum number of daily builds to keep'
+        required: true
+        default: 42
+      build_data:
+        type: string
+        description: 'JSON string with data for updating the index'
+        required: true
+        default: '{}'
+
+jobs:
+  update-index:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PAT }}
+
+      - name: Run update_index.py script
+        run: |
+          # Set the JSON string to an environment variable
+          export BUILD_DATA='${{ github.event.inputs.build_data }}'
+          # Run the update script located at the repository root
+          python3 update_index.py "${{ github.event.inputs.table }}" "${{ github.event.inputs.limit }}" "$BUILD_DATA"
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add index.md
+          git commit -m "Update index via workflow" || echo "No changes to commit"
+          git push
+
+  update-index-remote:
+    if: github.event_name == 'repository_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PAT }}
+
+      - name: Run update_index.py script
+        run: |
+          echo "Table: ${{ github.event.client_payload.table }}"
+          echo "Limit: ${{ github.event.client_payload.limit }}"
+          echo "Build Data: ${{ github.event.client_payload.build_data }}"
+          # Use toJson to convert the build_data payload back into a properly escaped JSON string
+          export BUILD_DATA='${{ toJson(github.event.client_payload.build_data) }}'
+          echo "BUILD_DATA: $BUILD_DATA"
+          python3 update_index.py "${{ github.event.client_payload.table }}" "${{ github.event.client_payload.limit }}" "$BUILD_DATA"
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add index.md
+          git commit -m "Update index via workflow dispatch" || echo "No changes to commit"
+          git push
