@@ -12,8 +12,8 @@ title: Home
   width: 90% !important;
   margin-left: 5% !important;
   margin-right: 5% !important;
-  margin-top: 0 !important;  
-  margin-bottom: 0 !important;
+  margin-top: 5% !important;  
+  margin-bottom: 5% !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
