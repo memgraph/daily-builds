@@ -2,6 +2,22 @@
 layout: default
 title: Home
 ---
+<style>
+/* Override the container element’s width */
+.container-lg,
+.container,
+.site-container,
+.page-container {
+  max-width: 90% !important;
+  width: 90% !important;
+  margin-left: 5% !important;
+  margin-right: 5% !important;
+  margin-top: 0 !important;  
+  margin-bottom: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+</style>
 <img src="https://public-assets.memgraph.com/github-readme-images/github-memgraph-repo-banner.png" alt="Banner" style="width: 100%;">
 
 
