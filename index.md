@@ -23,6 +23,8 @@ title: Home
 
 # Daily Builds
 
+This page contains daily builds for [Memgraph](#memgraph) and [MAGE](#mage) with their overall test status denoted by 🟢 (pass), 🔴 (fail) or ⚪ (unknown).
+
 ## Memgraph
 
 
