@@ -25,6 +25,13 @@ title: Home
 
 This page contains daily builds for [Memgraph](#memgraph) and [MAGE](#mage) with their overall test status denoted by 🟢 (pass), 🔴 (fail) or ⚪ (unknown). Binaries are still produced if the tests fail or do not run, and can therefore be used (with some caution).
 
+> **ℹ️ Disclaimer on usage**
+>
+> - Daily builds let you try out new, unreleased Memgraph features ahead of an official release.
+> - To see exactly which PRs are included in a given daily build, cross-reference the build's commit hash with the master branch history at [github.com/memgraph/memgraph/commits/master](https://github.com/memgraph/memgraph/commits/master/).
+> - Upgrades from one daily build to another are **not guaranteed** to work. If an upgrade fails, start a fresh instance and re-populate the data.
+> - Memgraph guarantees upgrades only between official releases — guaranteeing upgrades between arbitrary daily builds is not feasible.
+
 ## Memgraph
 
 
