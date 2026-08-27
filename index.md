@@ -25,6 +25,8 @@ title: Home
 
 This page contains daily builds for [Memgraph](#memgraph) and [MAGE](#mage) with their overall test status denoted by 🟢 (pass), 🔴 (fail) or ⚪ (unknown). Binaries may still be produced if the tests fail or do not run, and can therefore be used (with some caution).
 
+In both tables below, each row is a single day's build, labelled with the date (`YYYYMMDD`) it was produced and its overall test status. The remaining columns are the build targets, and each cell holds the download links for the artifacts built for that target, with an empty cell meaning nothing was produced for it that day. Since [memgraph#3587](https://github.com/memgraph/memgraph/pull/3587) the packages are distro-agnostic and depend only on glibc: the `deb` and `rpm` columns come from a single build that runs on any distribution with glibc >= 2.31, so the older per-distribution columns (`ubuntu-24.04`, `centos-9`, and so on) are only populated for builds predating that change. The link text names the artifact: the architecture (`x86_64` or `arm64`), followed by any build variants — `debuginfo` (the separate debug symbols for the corresponding package), `malloc` (built against the system allocator rather than jemalloc), `cuda` or `cugraph` (GPU-enabled MAGE builds), and, for Docker images, `relwithdebinfo`, meaning the image ships both the stripped production binary and its debug symbols together with debugging tools.
+
 **Warning: Daily builds should not be used in production!** 
 
 > **ℹ️ Disclaimer on usage**
